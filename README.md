@@ -3,7 +3,35 @@
 A self-support page for troubleshooting: load your OneNote notes, type a few words, get
 autocomplete suggestions and the matching knowledge entries.
 
-## Run it
+## Publish on GitHub Pages (works on mobile)
+
+The site is static: a GitHub Action reads `onenotes/`, builds a search index, and deploys
+it. Search then runs entirely in the browser, so it works on any phone.
+
+One-time setup:
+
+1. Merge this branch into your default branch (`main`).
+2. In the repo: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+3. The workflow runs on every push that changes the notes or the app. The site appears at
+   `https://<your-user>.github.io/PMSupport/`. Open it on your phone and use
+   *Add to Home Screen* for an app-like icon.
+
+Uploading notes from the published site (`/admin.html`, also works on a phone):
+
+1. Create a [fine-grained token](https://github.com/settings/personal-access-tokens/new)
+   limited to this repository with **Contents: Read and write**.
+2. Open **Manage notes**, paste the token, and press Connect. The token stays in that
+   browser only; repeat on each device.
+3. Upload files. They are committed to `onenotes/` and the site rebuilds in about a minute.
+   The admin list shows *Publishing…* until the new version is live.
+
+**Privacy:** a free GitHub account serves Pages publicly, and the repo's `onenotes/` files
+(and their copies on the site) are readable by anyone who has the link when the repo is
+public. Only publish notes you are comfortable sharing, or use a private repository with a
+plan that supports private Pages (GitHub Pro/Team/Enterprise). The token protects
+*uploading*, not *reading*.
+
+## Run it locally (optional Node server)
 
 ```
 npm install
@@ -12,6 +40,7 @@ npm start
 
 - Search page: http://localhost:3000
 - Admin page (upload / delete notes): http://localhost:3000/admin
+- Static build for Pages: `npm run build` (output in `dist/`)
 
 ## Where the notes live
 

@@ -11,8 +11,6 @@ let active = -1;
 let suggestSeq = 0;
 let debounce;
 
-const getJson = (url) => fetch(url).then((r) => r.json());
-
 function el(tag, props = {}, children = []) {
   const node = Object.assign(document.createElement(tag), props);
   for (const c of [].concat(children)) node.append(c);
@@ -50,7 +48,12 @@ async function loadSuggest() {
     items = [];
     return closeSuggest();
   }
-  const data = await getJson('/api/suggest?q=' + encodeURIComponent(q));
+  let data;
+  try {
+    data = await Engine.suggest(q);
+  } catch {
+    return;
+  }
   if (seq !== suggestSeq) return; // a newer keystroke won
   items = [
     ...data.queries.map((s) => ({ type: 'query', label: s })),
@@ -114,9 +117,9 @@ async function runSearch(query, openId, push = true) {
   hintEl.textContent = 'Searching…';
   let data;
   try {
-    data = await getJson('/api/search?q=' + encodeURIComponent(query));
+    data = await Engine.search(query);
   } catch {
-    hintEl.textContent = 'Search failed. Is the server running?';
+    hintEl.textContent = 'Search failed. Reload the page and try again.';
     return;
   }
   if (!data.results.length) {
@@ -159,9 +162,9 @@ function resultCard(r, open) {
       detail = el('div', { className: 'detail', textContent: 'Loading…' });
       li.append(detail);
       try {
-        const s = await getJson('/api/section?id=' + encodeURIComponent(r.id));
+        const s = await Engine.section(r.id);
         detail.innerHTML = s.html; // sanitized by the server at index time
-        const link = el('a', { href: '/notes/' + s.file.split('/').map(encodeURIComponent).join('/'), textContent: s.file, target: '_blank' });
+        const link = el('a', { href: 'notes/' + s.file.split('/').map(encodeURIComponent).join('/'), textContent: s.file, target: '_blank' });
         detail.append(el('div', { className: 'foot' }, ['Source: ', link]));
       } catch {
         detail.textContent = 'Could not load this entry.';
@@ -190,8 +193,8 @@ function fromUrl() {
 window.addEventListener('popstate', fromUrl);
 fromUrl();
 
-getJson('/api/stats').then((s) => {
+Engine.stats().then((s) => {
   $('stats').textContent = s.sections
     ? `Search ${s.sections} knowledge ${s.sections === 1 ? 'entry' : 'entries'} from ${s.files} ${s.files === 1 ? 'note file' : 'note files'}`
     : 'No notes loaded yet — add some from Manage notes';
-});
+}).catch(() => {});

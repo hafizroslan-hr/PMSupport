@@ -150,3 +150,4 @@ mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1
   .files td:last-child { margin-left: auto; }
   .searchbox .btn { padding: 0 14px; }
 }
+.files td.num.na::after { content: none !important; }

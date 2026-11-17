@@ -4,12 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Support Knowledge Hub</title>
-  <link rel="stylesheet" href="/style.css">
+  <meta name="theme-color" content="#6b3fa0">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="/">Support Knowledge Hub</a>
-    <a href="/admin">Manage notes</a>
+    <a class="brand" href="./">Support Knowledge Hub</a>
+    <a href="admin.html">Manage notes</a>
   </header>
   <main>
     <section class="hero">
@@ -17,7 +20,7 @@
       <p id="stats">Search your support notes</p>
       <div class="searchbox">
         <form id="form" autocomplete="off">
-          <input id="q" type="search" placeholder="Type a few words — an error, a symptom, a system…"
+          <input id="q" type="search" enterkeyhint="search" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Type a few words — an error, a symptom, a system…"
                  aria-label="Search knowledge" aria-autocomplete="list" aria-controls="suggest" autofocus>
           <button class="btn" type="submit">Search</button>
         </form>
@@ -27,6 +30,7 @@
     <p id="hint" class="hint" hidden></p>
     <ul id="results" class="results"></ul>
   </main>
-  <script src="/app.js"></script>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

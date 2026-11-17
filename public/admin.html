@@ -4,12 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Manage notes — Support Knowledge Hub</title>
-  <link rel="stylesheet" href="/style.css">
+  <meta name="theme-color" content="#6b3fa0">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="/">Support Knowledge Hub</a>
-    <a href="/">Back to search</a>
+    <a class="brand" href="./">Support Knowledge Hub</a>
+    <a href="./">Back to search</a>
   </header>
   <main class="admin">
     <h1>Manage notes</h1>
@@ -22,6 +25,29 @@
         <button class="btn" type="submit">Unlock</button>
       </form>
       <div class="msg" id="loginMsg"></div>
+    </section>
+
+    <section class="panel" id="connect" hidden>
+      <h2>Connect to your GitHub repo</h2>
+      <p class="sub" style="margin-bottom:12px">
+        This site is hosted on GitHub Pages, so uploads are saved straight into your repo and the site
+        rebuilds itself. Create a
+        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">fine-grained token</a>
+        limited to this repository with <strong>Contents: Read and write</strong>, then paste it below.
+        The token is kept only in this browser, so repeat this once on each device.
+      </p>
+      <form id="connectForm">
+        <div class="row" style="margin-top:0">
+          <label for="repo" style="min-width:60px">Repository</label>
+          <input id="repo" type="text" placeholder="owner/name" autocapitalize="off" autocorrect="off" spellcheck="false">
+        </div>
+        <div class="row">
+          <label for="token" style="min-width:60px">Token</label>
+          <input id="token" type="password" placeholder="github_pat_…" autocomplete="off">
+          <button class="btn" type="submit">Connect</button>
+        </div>
+      </form>
+      <div class="msg" id="connectMsg"></div>
     </section>
 
     <div id="content" hidden>
@@ -54,6 +80,6 @@
       </section>
     </div>
   </main>
-  <script src="/admin.js"></script>
+  <script src="admin.js"></script>
 </body>
 </html>
