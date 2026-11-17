@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manage notes — Support Knowledge Hub</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">Support Knowledge Hub</a>
+    <a href="/">Back to search</a>
+  </header>
+  <main class="admin">
+    <h1>Manage notes</h1>
+    <p class="sub" id="summary">Loading…</p>
+
+    <section class="panel" id="login" hidden>
+      <h2>Admin password</h2>
+      <form id="loginForm" class="row" style="margin-top:0">
+        <input id="password" type="password" placeholder="Password" aria-label="Admin password" autocomplete="current-password">
+        <button class="btn" type="submit">Unlock</button>
+      </form>
+      <div class="msg" id="loginMsg"></div>
+    </section>
+
+    <div id="content" hidden>
+      <section class="panel">
+        <h2>Upload notes</h2>
+        <div class="drop" id="drop">
+          <p><strong>Drop note files here</strong> or</p>
+          <button class="btn secondary" type="button" id="pick">Choose files</button>
+          <input id="fileInput" type="file" multiple hidden>
+          <p id="formats" style="font-size:13px;margin-bottom:0"></p>
+        </div>
+        <div class="row">
+          <label for="folder">Notebook folder (optional)</label>
+          <input id="folder" type="text" placeholder="e.g. Network or SAP/Printing">
+        </div>
+        <div class="msg" id="uploadMsg"></div>
+      </section>
+
+      <section class="panel">
+        <div class="row" style="margin:0 0 12px;justify-content:space-between">
+          <h2 style="margin:0">Loaded notes</h2>
+          <button class="btn small secondary" type="button" id="reindex">Re-index all</button>
+        </div>
+        <div class="tablewrap">
+          <table class="files">
+            <thead><tr><th>File</th><th class="num">Entries</th><th class="num">Size</th><th class="num">Updated</th><th></th></tr></thead>
+            <tbody id="fileRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="/admin.js"></script>
+</body>
+</html>
